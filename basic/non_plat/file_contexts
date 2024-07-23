@@ -533,7 +533,6 @@
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/frp                              u:object_r:frp_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/expdb                            u:object_r:expdb_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/misc2                            u:object_r:misc2_block_device:s0
-/dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/logo                             u:object_r:logo_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/para                             u:object_r:para_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/misc                             u:object_r:misc_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/seccfg                           u:object_r:seccfg_block_device:s0
@@ -560,6 +559,7 @@
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/oem(_[ab])?                      u:object_r:oem_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/vendor(_[ab])?                   u:object_r:vendor_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/lk(_[ab])?                       u:object_r:lk_block_device:s0
+/dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/logo(_[ab])?                     u:object_r:logo_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/odmdtbo(_[ab])?                  u:object_r:dtbo_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/dtbo(_[ab])?                     u:object_r:dtbo_block_device:s0
 /dev/block/platform/mtk-\b(msdc|ufs)\b\.0/[0-9]+\.\b(msdc0|ufs0)\b/by-name/tee([12]|_[ab])                  u:object_r:tee_block_device:s0
@@ -584,7 +584,6 @@
 /dev/block/by-name/frp                              u:object_r:frp_block_device:s0
 /dev/block/by-name/expdb                            u:object_r:expdb_block_device:s0
 /dev/block/by-name/misc2                            u:object_r:misc2_block_device:s0
-/dev/block/by-name/logo                             u:object_r:logo_block_device:s0
 /dev/block/by-name/para                             u:object_r:para_block_device:s0
 /dev/block/by-name/misc                             u:object_r:misc_block_device:s0
 /dev/block/by-name/seccfg                           u:object_r:seccfg_block_device:s0
@@ -609,6 +608,7 @@
 /dev/block/by-name/oem(_[ab])?                      u:object_r:oem_block_device:s0
 /dev/block/by-name/vendor(_[ab])?                   u:object_r:vendor_block_device:s0
 /dev/block/by-name/lk(_[ab])?                       u:object_r:lk_block_device:s0
+/dev/block/by-name/logo(_[ab])?                     u:object_r:logo_block_device:s0
 /dev/block/by-name/odmdtbo(_[ab])?                  u:object_r:dtbo_block_device:s0
 /dev/block/by-name/dtbo(_[ab])?                     u:object_r:dtbo_block_device:s0
 /dev/block/by-name/tee([12]|_[ab])                  u:object_r:tee_block_device:s0
@@ -767,7 +767,9 @@
 # MTK USB hal
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb@1\.[0-9]+-service-mediatek   u:object_r:mtk_hal_usb_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb-service.mediatek             u:object_r:mtk_hal_usb_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.usb-service.mediatek-legacy      u:object_r:mtk_hal_usb_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb@1\.[0-9]+-service-mediatekv2 u:object_r:mtk_hal_usb_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.usb\.gadget-service\.mediatek    u:object_r:mtk_hal_usb_exec:s0
 
 # MTK OMAPI for UICC
 /(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element@1\.[0-9]+-service-mediatek u:object_r:mtk_hal_secure_element_exec:s0
@@ -960,10 +962,6 @@
 /factory_init\..* u:object_r:rootfs:s0
 /meta_init\..*    u:object_r:rootfs:s0
 /multi_init\..*   u:object_r:rootfs:s0
-/dev/block/by-name/preloader_raw_a                                                                          u:object_r:postinstall_block_device:s0
-/dev/block/by-name/preloader_raw_b                                                                          u:object_r:postinstall_block_device:s0
-/dev/block/platform/bootdevice/by-name/preloader_raw_a                                                      u:object_r:postinstall_block_device:s0
-/dev/block/platform/bootdevice/by-name/preloader_raw_b                                                      u:object_r:postinstall_block_device:s0
 
 /postinstall/bin/mtk_plpath_utils_ota                                                                       u:object_r:postinstall_file:s0
 # Custom files
